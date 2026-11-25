@@ -20,10 +20,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup up JDK 8
+      - name: Setup JDK 17 for SDK Manager
         uses: actions/setup-java@v4
         with:
-          java-version: '8'
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Setup Android SDK
@@ -31,6 +31,12 @@ jobs:
 
       - name: Install Android API 17
         run: sdkmanager "platforms;android-17"
+
+      - name: Switch to JDK 8 for Gradle
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
 
       - name: Make gradlew executable
         run: chmod +x gradlew
@@ -40,4 +46,3 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew test
-
