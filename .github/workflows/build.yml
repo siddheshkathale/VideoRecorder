@@ -2,7 +2,7 @@ name: Android Build
 
 on:
   push:
-   branches: [master]
+    branches: [master]
   pull_request:
     branches: [master]
   workflow_dispatch:
@@ -10,7 +10,6 @@ on:
 concurrency:
   group: android-${{ github.ref }}
   cancel-in-progress: true
-
 
 jobs:
   build:
@@ -31,6 +30,11 @@ jobs:
           echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
             "platforms;android-17" \
             "build-tools;22.0.1"
+
+      - name: Install 32-bit libraries for aapt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lib32z1 lib32stdc++6
 
       - name: Switch to JDK 8 for Gradle
         uses: actions/setup-java@v4
