@@ -26,9 +26,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Android API 17
+      - name: Install Android SDK components
         run: |
-          echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "platforms;android-17"
+          echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
+            "platforms;android-17" \
+            "build-tools;22.0.1"
 
       - name: Switch to JDK 8 for Gradle
         uses: actions/setup-java@v4
